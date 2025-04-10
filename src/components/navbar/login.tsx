@@ -1,4 +1,5 @@
 import { UserCheck } from "lucide-react";
+import { Button } from "../shared/button";
 
 interface Props {
   ifAuth: boolean;
@@ -7,12 +8,8 @@ interface Props {
 export function LoginBlock({ ifAuth }: Props) {
   return !ifAuth ? (
     <div className="flex gap-2 text-lg font-s5 whitespace-nowrap">
-      <button className="p-3 px-5 max-md:w-full hover:text-teal-100 cursor-pointer hover:scale-105 transition bg-indigo-500 text-white rounded-xl">
-        Войти
-      </button>
-      <button className="p-3 px-5 max-md:w-full hover:text-teal-100 hover:scale-105 cursor-pointer transition bg-indigo-500 text-white rounded-xl">
-        Регистрация
-      </button>
+      <Button text={"Войти"} />
+      <Button text={"Регистрация"} />
     </div>
   ) : (
     <div className="rounded-xl bg-indigo-500 p-2 ">
