@@ -1,3 +1,3 @@
-export default function Collection() {
-  return <div>sds</div>;
+export function Collection() {
+  return <div>Collection</div>;
 }

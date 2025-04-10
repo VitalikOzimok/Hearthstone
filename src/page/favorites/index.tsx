@@ -1,3 +1,3 @@
-export default function Favorites() {
-  return <div className="min-h-full  ">djlg</div>;
+export function Favorites() {
+  return <div className="min-h-full  ">Favorites</div>;
 }
