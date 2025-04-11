@@ -11,6 +11,7 @@ export function Collection() {
   const [filterByHero, setFilterByHero] = useState<string>("Druid"); //  герой по умолчанию
   const [idByCost, setIdByCost] = useState<number>(1); // айди затрата маны
   const [loading, setLoading] = useState(true);
+  const [selectedHero, setSelectedHero] = useState(filterByHero);
 
   useEffect(() => {
     const fetchCards = async () => {
@@ -92,16 +93,17 @@ export function Collection() {
   }, [idByCost, cards]);
 
   return (
-    <div className="flex bg-amber-50">
+    <div className="flex bg-amber-100">
       <div className="py-8 ">
         <HeroItem
           hero={hero}
           setFilterByHero={setFilterByHero}
           setLoading={setLoading}
+          filterByHero={filterByHero}
         />
       </div>
       <div className="flex flex-col items-center pt-5">
-        <FilterByMana setIdByCost={setIdByCost} />
+        <FilterByMana setIdByCost={setIdByCost} idByCost={idByCost} />
         <CardList loading={loading} filteredCards={filteredCards} />
       </div>
     </div>
