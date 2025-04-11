@@ -4,14 +4,10 @@ import Logo from "../../assets/logo.png";
 import { LoginBlock } from "./login";
 import { SeacrhInput } from "../shared/search-input";
 import { ROUTES } from "../../constants/route";
+import { navItems } from "./constants";
 
 export function NavBar() {
   const [ifAuth, setIfAuth] = useState<boolean>(false);
-  const navItems = [
-    { to: ROUTES.collection, label: "Коллекция", authRequired: false },
-    { to: ROUTES.favorites, label: "Избранное", authRequired: true },
-    { to: ROUTES.history, label: "История", authRequired: true },
-  ];
 
   return (
     <div className="sticky top-0 w-full py-4  z-50 shadow-lg shadow-violet-200 bg-amber-200">
