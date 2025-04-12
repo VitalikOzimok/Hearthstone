@@ -1,7 +1,8 @@
-import { Card } from "./type";
+import { Card } from "./card";
+import { TypeCard } from "./type";
 type ChildProps = {
   loading: boolean;
-  filteredCards: Card[];
+  filteredCards: TypeCard[];
 };
 export function CardList({ loading, filteredCards }: ChildProps) {
   return (
@@ -10,10 +11,7 @@ export function CardList({ loading, filteredCards }: ChildProps) {
         <div className="flex mx-auto ">
           <div className="  mx-auto flex flex-wrap justify-center gap-4 w-full">
             {filteredCards.map((card) => (
-              <div key={card.cardId} className="flex flex-col items-center">
-                <img src={card.img} alt={card.name} className="w-[200px]" />
-                <p>{card.name}</p>
-              </div>
+              <Card card={card} />
             ))}
           </div>
         </div>

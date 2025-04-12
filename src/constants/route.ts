@@ -3,4 +3,5 @@ export const ROUTES = {
   favorites: "/favorites",
   collection: "/collection",
   history: "/history",
+  hearthstoneCard: "/hearthstoneCard/:cardName",
 };

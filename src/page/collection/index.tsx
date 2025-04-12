@@ -2,16 +2,15 @@ import { useEffect, useState } from "react";
 import { FilterByMana } from "./filterByMana";
 import { CardList } from "./cardList";
 import { HeroItem } from "./heroItem";
-import { Card } from "./type";
+import { TypeCard } from "./type";
 
 export function Collection() {
-  const [cards, setCards] = useState<Card[]>([]); //все карты
-  const [filteredCards, setFilteredCards] = useState<Card[]>([]); // карты отфильтрованные по затрате маны
+  const [cards, setCards] = useState<TypeCard[]>([]); //все карты
+  const [filteredCards, setFilteredCards] = useState<TypeCard[]>([]); // карты отфильтрованные по затрате маны
   const [hero, setHero] = useState<string[]>([]); // массив героев который получаем с api
   const [filterByHero, setFilterByHero] = useState<string>("Druid"); //  герой по умолчанию
   const [idByCost, setIdByCost] = useState<number>(1); // айди затрата маны
   const [loading, setLoading] = useState(true);
-  const [selectedHero, setSelectedHero] = useState(filterByHero);
 
   useEffect(() => {
     const fetchCards = async () => {
@@ -30,7 +29,7 @@ export function Collection() {
 
         const data = await response.json();
         const cardsWithImages = data.filter(
-          (card: Card) =>
+          (card: TypeCard) =>
             card.img && card.type != "Hero Power" && card.type != "Hero"
         ); // только те, у кого есть картинка
         setCards(cardsWithImages);
