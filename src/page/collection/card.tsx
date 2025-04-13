@@ -1,4 +1,5 @@
 import { Button } from "../../components/shared/button";
+import { ROUTES } from "../../constants/route";
 import { TypeCard } from "./type";
 import { NavLink } from "react-router-dom";
 
@@ -8,7 +9,12 @@ type ChildProps = {
 export function Card({ card }: ChildProps) {
   return (
     <div className="relative">
-      <NavLink to={`/hearthstoneCard/${encodeURIComponent(card.name)}`}>
+      <NavLink
+        to={ROUTES.hearthstoneCard.replace(
+          ":cardName",
+          encodeURIComponent(card.name)
+        )}
+      >
         <div
           key={card.cardId}
           className="flex flex-col items-center cursor-pointer"
@@ -18,7 +24,6 @@ export function Card({ card }: ChildProps) {
             alt={card.name}
             className="w-[200px] hover:scale-105 transition duration-300"
           />
-
           <p>{card.name}</p>
         </div>
       </NavLink>

@@ -3,20 +3,22 @@ import { FilterByMana } from "./filterByMana";
 import { CardList } from "./cardList";
 import { HeroItem } from "./heroItem";
 import { TypeCard } from "./type";
+import { BASE_URL, CARD_TYPES } from "./constants";
+import { filterCardsByCost } from "../../utils/filterByCost";
 
 export function Collection() {
-  const [cards, setCards] = useState<TypeCard[]>([]); //все карты
-  const [filteredCards, setFilteredCards] = useState<TypeCard[]>([]); // карты отфильтрованные по затрате маны
-  const [hero, setHero] = useState<string[]>([]); // массив героев который получаем с api
-  const [filterByHero, setFilterByHero] = useState<string>("Druid"); //  герой по умолчанию
-  const [idByCost, setIdByCost] = useState<number>(1); // айди затрата маны
+  const [cards, setCards] = useState<TypeCard[]>([]);
+  const [filteredCards, setFilteredCards] = useState<TypeCard[]>([]);
+  const [hero, setHero] = useState<string[]>([]);
+  const [filterByHero, setFilterByHero] = useState<string>("Druid");
+  const [idByCost, setIdByCost] = useState<number>(1);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchCards = async () => {
       try {
         const response = await fetch(
-          `https://omgvamp-hearthstone-v1.p.rapidapi.com/cards/classes/${filterByHero}`,
+          `${BASE_URL}/cards/classes/${filterByHero}`,
           {
             method: "GET",
             headers: {
@@ -30,8 +32,10 @@ export function Collection() {
         const data = await response.json();
         const cardsWithImages = data.filter(
           (card: TypeCard) =>
-            card.img && card.type != "Hero Power" && card.type != "Hero"
-        ); // только те, у кого есть картинка
+            card.img &&
+            card.type != CARD_TYPES.HERO_POWER &&
+            card.type != CARD_TYPES.HERO
+        );
         setCards(cardsWithImages);
         setFilteredCards(cardsWithImages);
       } catch (err) {
@@ -43,25 +47,17 @@ export function Collection() {
 
     fetchCards();
   }, [filterByHero]);
-
-  useEffect(() => {
-    console.log(cards);
-  });
-
   useEffect(() => {
     const fetchInfo = async () => {
       try {
-        const response = await fetch(
-          "https://omgvamp-hearthstone-v1.p.rapidapi.com/info",
-          {
-            method: "GET",
-            headers: {
-              "x-rapidapi-host": "omgvamp-hearthstone-v1.p.rapidapi.com",
-              "x-rapidapi-key":
-                "969eab551bmsh9717eccfd67bee0p16fb0bjsnf691a0441e9f",
-            },
-          }
-        );
+        const response = await fetch(`${BASE_URL}/info`, {
+          method: "GET",
+          headers: {
+            "x-rapidapi-host": "omgvamp-hearthstone-v1.p.rapidapi.com",
+            "x-rapidapi-key":
+              "969eab551bmsh9717eccfd67bee0p16fb0bjsnf691a0441e9f",
+          },
+        });
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -72,8 +68,6 @@ export function Collection() {
           (item: string) => item != "Dream" && item != "Whizbang"
         );
         setHero(res);
-
-        console.log("Hearthstone API Data:", data);
       } catch (err) {
         const error = err as Error;
         console.error("Ошибка при получении данных:", error.message);
@@ -84,10 +78,7 @@ export function Collection() {
   }, []);
 
   useEffect(() => {
-    const filtered =
-      idByCost !== 8
-        ? cards.filter((card) => card.cost === idByCost)
-        : cards.filter((card) => card.cost >= 8);
+    const filtered = filterCardsByCost(cards, idByCost);
     setFilteredCards(filtered);
   }, [idByCost, cards]);
 
