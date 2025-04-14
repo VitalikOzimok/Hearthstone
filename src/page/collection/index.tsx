@@ -5,6 +5,7 @@ import { HeroItem } from "./heroItem";
 import { TypeCard } from "./type";
 import { BASE_URL, CARD_TYPES } from "./constants";
 import { filterCardsByCost } from "../../utils/filterByCost";
+import { API_HEADERS } from "../hearthstoneCard/constants";
 
 export function Collection() {
   const [cards, setCards] = useState<TypeCard[]>([]);
@@ -21,11 +22,7 @@ export function Collection() {
           `${BASE_URL}/cards/classes/${filterByHero}`,
           {
             method: "GET",
-            headers: {
-              "x-rapidapi-host": "omgvamp-hearthstone-v1.p.rapidapi.com",
-              "x-rapidapi-key":
-                "969eab551bmsh9717eccfd67bee0p16fb0bjsnf691a0441e9f",
-            },
+            headers: API_HEADERS,
           }
         );
 
@@ -52,11 +49,7 @@ export function Collection() {
       try {
         const response = await fetch(`${BASE_URL}/info`, {
           method: "GET",
-          headers: {
-            "x-rapidapi-host": "omgvamp-hearthstone-v1.p.rapidapi.com",
-            "x-rapidapi-key":
-              "969eab551bmsh9717eccfd67bee0p16fb0bjsnf691a0441e9f",
-          },
+          headers: API_HEADERS,
         });
 
         if (!response.ok) {

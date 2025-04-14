@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { TypeCard } from "../collection/type";
 import { Button } from "../../components/shared/button";
-import { fieldsToDisplay } from "./constants";
+import { API_HEADERS, fieldsToDisplay } from "./constants";
 import { BASE_URL } from "../collection/constants";
 export function HearthstoneCard() {
   const { cardName } = useParams<{ cardName: string }>();
@@ -13,11 +13,7 @@ export function HearthstoneCard() {
       try {
         const response = await fetch(`${BASE_URL}/cards/${cardName}`, {
           method: "GET",
-          headers: {
-            "x-rapidapi-host": "omgvamp-hearthstone-v1.p.rapidapi.com",
-            "x-rapidapi-key":
-              "969eab551bmsh9717eccfd67bee0p16fb0bjsnf691a0441e9f",
-          },
+          headers: API_HEADERS,
         });
         const data = await response.json();
         setOneCard(data[0]);
