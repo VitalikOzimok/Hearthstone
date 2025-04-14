@@ -6,6 +6,7 @@ import { Home } from "./page/home";
 import { Favorites } from "./page/favorites";
 import { Collection } from "./page/collection";
 import { History } from "./page/history";
+import { HearthstoneCard } from "./page/hearthstoneCard";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path={ROUTES.favorites} element={<Favorites />} />
         <Route path={ROUTES.collection} element={<Collection />} />
         <Route path={ROUTES.history} element={<History />} />
+        <Route path={ROUTES.hearthstoneCard} element={<HearthstoneCard />} />
       </Routes>
     </div>
   );
