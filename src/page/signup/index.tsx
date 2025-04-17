@@ -1,16 +1,17 @@
+import { useState } from "react";
 import { Form } from "../../components/shared/form";
 import { Header } from "../../components/shared/header";
-import { useAuth } from "../../hooks/useAuth";
 import { fields } from "./constants";
 
 export function SignUp() {
-  const { state } = useAuth();
-
+  const [error, setError] = useState<string | null>(null);
   return (
     <>
-      <div className="flex flex-col items-center w-4/6 mx-auto  gap-5">
-        <Header text1={"Заходите в таверну!"} text2={"Регистрация"} />
+      <div className="flex flex-col items-center w-4/6 mx-auto  gap-10">
+        <Header text1={"Приключение начинается!"} text2={"Регистрация"} />
+        <div className="text-red-500 text-xl">{error}</div>
         <Form
+          setError={setError}
           fields={fields}
           buttonText={"Зарегистрироваться"}
           onSubmit={(data, dispatch) => {

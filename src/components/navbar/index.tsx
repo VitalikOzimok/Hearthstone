@@ -1,14 +1,13 @@
-import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import Logo from "../../assets/logo.png";
 import { LoginBlock } from "./login";
 import { SeacrhInput } from "../shared/search-input";
 import { ROUTES } from "../../constants/route";
 import { navItems } from "./constants";
+import { useAuth } from "../../hooks/useAuth";
 
 export function NavBar() {
-  const [ifAuth, setIfAuth] = useState<boolean>(false);
-
+  const { state } = useAuth();
   return (
     <div className="sticky top-0 w-full py-4  z-50 shadow-lg shadow-violet-200 bg-amber-200">
       <nav className="flex items-center justify-between gap-4 mx-auto w-5/6">
@@ -18,7 +17,7 @@ export function NavBar() {
         <div className="flex gap-5  text-lg  whitespace-nowrap">
           {navItems.map(
             (item) =>
-              (!item.authRequired || ifAuth) && (
+              (!item.authRequired || state.isAuthenticated) && (
                 <NavLink key={item.to} to={item.to}>
                   {item.label}
                 </NavLink>
@@ -26,7 +25,7 @@ export function NavBar() {
           )}
         </div>
         <SeacrhInput />
-        <LoginBlock ifAuth={ifAuth} />
+        <LoginBlock />
       </nav>
     </div>
   );

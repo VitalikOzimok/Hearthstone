@@ -5,5 +5,5 @@ export const ROUTES = {
   history: "/history",
   hearthstoneCard: "/hearthstoneCard/:cardName",
   signin: "/signin",
-  signup: "/sugnup",
+  signup: "/signup",
 };
