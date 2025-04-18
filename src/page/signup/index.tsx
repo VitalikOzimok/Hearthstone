@@ -14,7 +14,7 @@ export function SignUp() {
           setError={setError}
           fields={fields}
           buttonText={"Зарегистрироваться"}
-          onSubmit={(data, dispatch) => {
+          onSubmit={async (data, dispatch) => {
             const userData = {
               user: {
                 login: data.login,
@@ -22,12 +22,16 @@ export function SignUp() {
                 password: data.password,
               },
               token: Date.now() + "_" + Math.random().toString(36).slice(2),
+              isAuthenticated: true,
             };
+
             localStorage.setItem("auth", JSON.stringify(userData));
             dispatch({
               type: "LOGIN",
               payload: userData,
             });
+
+            return true;
           }}
         />
       </div>

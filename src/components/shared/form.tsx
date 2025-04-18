@@ -38,9 +38,9 @@ export function Form({ fields, onSubmit, buttonText, setError }: ChildProp) {
       setError("Пожалуйста, заполните все поля.");
       return;
     }
-    const success = await onSubmit(formData, dispatch); // <- получаем результат
+    const success = await onSubmit(formData, dispatch);
     if (success) {
-      navigate(ROUTES.collection); // <- навигация только если всё ок
+      navigate(ROUTES.collection);
     }
   };
   const handleKeyDown = (e: React.KeyboardEvent) => {
