@@ -4,4 +4,6 @@ export const ROUTES = {
   collection: "/collection",
   history: "/history",
   hearthstoneCard: "/hearthstoneCard/:cardName",
+  signin: "/signin",
+  signup: "/signup",
 };

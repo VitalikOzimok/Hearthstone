@@ -4,9 +4,12 @@ import { TypeCard } from "../collection/type";
 import { Button } from "../../components/shared/button";
 import { API_HEADERS, fieldsToDisplay } from "./constants";
 import { BASE_URL } from "../collection/constants";
+import { useAuth } from "../../hooks/useAuth";
+
 export function HearthstoneCard() {
   const { cardName } = useParams<{ cardName: string }>();
   const [oneCard, setOneCard] = useState<TypeCard | null>(null);
+  const { state } = useAuth();
 
   useEffect(() => {
     const fetchCards = async () => {
@@ -26,7 +29,7 @@ export function HearthstoneCard() {
   }, [cardName]);
 
   return (
-    <div className="flex w-full mx-auto items-center justify-center">
+    <div className="flex w-full mx-auto items-center justify-center ">
       <img src={oneCard?.img} alt={oneCard?.name} />
       <div>
         <div className="font-bold text-5xl"> {oneCard?.name}</div>
@@ -42,9 +45,11 @@ export function HearthstoneCard() {
             );
           })}
         </div>
-        <div className="mt-10">
-          <Button text="Добавить в избранное" />
-        </div>
+        {state.isAuthenticated && (
+          <div className="mt-10">
+            <Button text="Добавить в избранное" />
+          </div>
+        )}
       </div>
     </div>
   );

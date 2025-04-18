@@ -7,10 +7,13 @@ import { Favorites } from "./page/favorites";
 import { Collection } from "./page/collection";
 import { History } from "./page/history";
 import { HearthstoneCard } from "./page/hearthstoneCard";
+import { SignIn } from "./page/signin";
+import { SignUp } from "./page/signup";
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
   return (
-    <div>
+    <AuthProvider>
       <NavBar />
       <Routes>
         <Route path={ROUTES.home} element={<Home />} />
@@ -18,8 +21,10 @@ function App() {
         <Route path={ROUTES.collection} element={<Collection />} />
         <Route path={ROUTES.history} element={<History />} />
         <Route path={ROUTES.hearthstoneCard} element={<HearthstoneCard />} />
+        <Route path={ROUTES.signin} element={<SignIn />} />
+        <Route path={ROUTES.signup} element={<SignUp />} />
       </Routes>
-    </div>
+    </AuthProvider>
   );
 }
 export default App;
