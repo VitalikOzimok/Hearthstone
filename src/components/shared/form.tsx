@@ -13,7 +13,7 @@ type Field = {
 type ChildProp = {
   fields: Field[];
   buttonText: string;
-  onSubmit: (data: Record<string, string>, dispatch: any) => void;
+  onSubmit: (data: Record<string, string>, dispatch: any) => Promise<boolean>;
   setError: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
@@ -38,8 +38,10 @@ export function Form({ fields, onSubmit, buttonText, setError }: ChildProp) {
       setError("Пожалуйста, заполните все поля.");
       return;
     }
-    await onSubmit(formData, dispatch);
-    navigate(ROUTES.collection);
+    const success = await onSubmit(formData, dispatch); // <- получаем результат
+    if (success) {
+      navigate(ROUTES.collection); // <- навигация только если всё ок
+    }
   };
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {

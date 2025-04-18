@@ -43,6 +43,17 @@ const authReducer = (state: AuthState, action: AuthAction): AuthState => {
         token: null,
         isAuthenticated: false,
       };
+    case "IF_AUTH":
+      const saved = localStorage.getItem("auth");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        return {
+          user: parsed.user,
+          token: parsed.token,
+          isAuthenticated: true,
+        };
+      }
+      return state;
     default:
       return state;
   }

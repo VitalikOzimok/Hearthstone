@@ -13,4 +13,5 @@ export interface AuthState {
 
 export type AuthAction =
   | { type: "LOGIN"; payload: { user: User; token: string } }
-  | { type: "LOGOUT" };
+  | { type: "LOGOUT" }
+  | { type: "IF_AUTH" };

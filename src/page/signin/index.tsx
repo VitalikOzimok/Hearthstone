@@ -10,24 +10,31 @@ export function SignIn() {
   return (
     <div className="flex flex-col items-center w-4/6 mx-auto  gap-20">
       <Header text1={"Заходи в таверну!"} text2={"Мы по тебе скучали"} />
+      <div className="text-red-500 text-xl">{error}</div>
       <Form
         setError={setError}
         fields={fields}
         buttonText={"Войти"}
-        onSubmit={(data, dispatch) => {
-          const userData = {
-            user: {
-              login: data.login,
-              email: data.email,
-              password: data.password,
-            },
-            token: Date.now() + "_" + Math.random().toString(36).slice(2),
-          };
-          localStorage.setItem("auth", JSON.stringify(userData));
-          dispatch({
-            type: "LOGIN",
-            payload: userData,
-          });
+        onSubmit={async (data, dispatch) => {
+          const auth = localStorage.getItem("auth");
+
+          if (!auth) {
+            setError("Пользователь не зарегистрирован");
+            return false;
+          }
+
+          const saved = JSON.parse(auth);
+
+          if (
+            data.login === saved.user.login &&
+            data.password === saved.user.password
+          ) {
+            dispatch({ type: "IF_AUTH" });
+            return true;
+          } else {
+            setError("Неверный логин или пароль");
+            return false;
+          }
         }}
       />
 

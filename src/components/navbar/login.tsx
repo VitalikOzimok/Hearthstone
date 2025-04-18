@@ -5,6 +5,7 @@ import { useAuth } from "../../hooks/useAuth";
 
 export function LoginBlock() {
   const { state, dispatch } = useAuth();
+
   return !state.isAuthenticated ? (
     <div className="flex gap-2 text-lg font-s5 whitespace-nowrap">
       <Button to={ROUTES.signin} text={"Войти"} />
