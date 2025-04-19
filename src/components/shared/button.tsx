@@ -5,13 +5,14 @@ type ButtonProps = {
   text: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   icon?: JSX.Element;
+  color?: string;
 };
-export function Button({ to, text, onClick, icon }: ButtonProps) {
+export function Button({ to, text, onClick, icon, color }: ButtonProps) {
   return (
     <NavLink to={to || "#"}>
       <button
         onClick={onClick}
-        className=" p-3 flex justify-center items-center  px-5 max-md:w-full  hover:scale-105 cursor-pointer transition bg-indigo-500 text-white rounded-xl"
+        className={` px-4 py-2 font-semibold shadow-md flex justify-center items-center   max-md:w-full  hover:scale-105 active:scale-95 cursor-pointer transition  duration-300 ease-in-out bg-blue-600  ${color} text-white rounded-xl `}
       >
         {text}
         <div className="text-red-400 mt-[2px]">{icon}</div>
