@@ -6,6 +6,7 @@ import { TypeCard } from "./type";
 import { BASE_URL, CARD_TYPES } from "./constants";
 import { filterCardsByCost } from "../../utils/filterByCost";
 import { API_HEADERS } from "../hearthstoneCard/constants";
+import { useLocation } from "react-router-dom";
 
 export function Collection() {
   const [cards, setCards] = useState<TypeCard[]>([]);
@@ -14,6 +15,8 @@ export function Collection() {
   const [filterByHero, setFilterByHero] = useState<string>("Druid");
   const [idByCost, setIdByCost] = useState<number>(1);
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
+  const searchQuery = location.state;
 
   useEffect(() => {
     const fetchCards = async () => {
@@ -44,6 +47,7 @@ export function Collection() {
 
     fetchCards();
   }, [filterByHero]);
+
   useEffect(() => {
     const fetchInfo = async () => {
       try {
@@ -74,6 +78,12 @@ export function Collection() {
     const filtered = filterCardsByCost(cards, idByCost);
     setFilteredCards(filtered);
   }, [idByCost, cards]);
+
+  useEffect(() => {
+    if (searchQuery) {
+      setFilterByHero(searchQuery);
+    }
+  }, [searchQuery]);
 
   return (
     <div className="flex bg-amber-100">
