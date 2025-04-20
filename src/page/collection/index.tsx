@@ -16,7 +16,7 @@ export function Collection() {
   const [idByCost, setIdByCost] = useState<number>(1);
   const [loading, setLoading] = useState(true);
   const location = useLocation();
-  const searchQuery = location.state;
+  const searchQuery: string = location.state;
 
   useEffect(() => {
     const fetchCards = async () => {
@@ -81,7 +81,10 @@ export function Collection() {
 
   useEffect(() => {
     if (searchQuery) {
-      setFilterByHero(searchQuery);
+      setFilterByHero(
+        searchQuery.trim().charAt(0).toUpperCase() +
+          searchQuery.trim().slice(1).toLowerCase()
+      );
     }
   }, [searchQuery]);
 
