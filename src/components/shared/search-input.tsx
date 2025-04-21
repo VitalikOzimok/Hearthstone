@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../page/collection/constants";
 import { API_HEADERS } from "../../page/hearthstoneCard/constants";
+import { ROUTES } from "../../constants/route";
+import { KEYS } from "../../constants/keys";
 
 export function SeacrhInput() {
   const navigate = useNavigate();
@@ -54,8 +56,8 @@ export function SeacrhInput() {
   }, [searchQuery]);
 
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && searchQuery) {
-      navigate("/collection", { state: searchQuery });
+    if (e.key === KEYS.enter && searchQuery) {
+      navigate(ROUTES.collection, { state: searchQuery });
       setSearchQuery("");
     }
   };
@@ -63,7 +65,7 @@ export function SeacrhInput() {
   const handleSuggestionClick = (suggestion: string) => {
     setSearchQuery(suggestion);
     setSuggestions([]);
-    navigate("/collection", { state: suggestion });
+    navigate(ROUTES.collection, { state: suggestion });
     setSearchQuery("");
   };
 

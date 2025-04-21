@@ -7,6 +7,7 @@ import { BASE_URL, CARD_TYPES } from "./constants";
 import { filterCardsByCost } from "../../utils/filterByCost";
 import { API_HEADERS } from "../hearthstoneCard/constants";
 import { useLocation } from "react-router-dom";
+import { capitalizeFirstLetter } from "../../utils/capitalizeFirstLetter";
 
 export function Collection() {
   const [cards, setCards] = useState<TypeCard[]>([]);
@@ -81,10 +82,9 @@ export function Collection() {
 
   useEffect(() => {
     if (searchQuery) {
-      setFilterByHero(
-        searchQuery.trim().charAt(0).toUpperCase() +
-          searchQuery.trim().slice(1).toLowerCase()
-      );
+      if (searchQuery) {
+        setFilterByHero(capitalizeFirstLetter(searchQuery));
+      }
     }
   }, [searchQuery]);
 
