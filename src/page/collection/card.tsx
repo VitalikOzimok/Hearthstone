@@ -3,7 +3,7 @@ import { ROUTES } from "../../constants/route";
 import { useAuth } from "../../hooks/useAuth";
 import { TypeCard } from "./type";
 import { NavLink } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks/typeReduxHooks"; // Импортируем хук
+import { useAppDispatch, useAppSelector } from "../../hooks/typeReduxHooks";
 import {
   addToFavorites,
   removeFromFavorites,
@@ -15,7 +15,7 @@ type ChildProps = {
 export function Card({ card }: ChildProps) {
   const { state } = useAuth();
   const dispatch = useAppDispatch();
-  const favorites = useAppSelector((state) => state.favorites.items); // Берем список избранных
+  const favorites = useAppSelector((state) => state.favorites.items);
   const isFav = card && favorites.some((item) => item.name === card.name);
 
   const toggleFavorite = () => {
