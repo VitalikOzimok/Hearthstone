@@ -1,10 +1,10 @@
 import { JSX } from "react";
 import { NavLink } from "react-router-dom";
 type ButtonProps = {
-  to?: string;
   text: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   icon?: JSX.Element;
+  to?: string;
 };
 export function Button({ to, text, onClick, icon }: ButtonProps) {
   return (

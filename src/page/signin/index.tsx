@@ -4,6 +4,7 @@ import { Form } from "../../components/shared/form";
 import { ROUTES } from "../../constants/route";
 import { fields } from "./constants";
 import { Header } from "../../components/shared/header";
+import { STORAGE_KEYS } from "../../constants/localStorage";
 
 export function SignIn() {
   const [error, setError] = useState<string | null>(null);
@@ -16,7 +17,7 @@ export function SignIn() {
         fields={fields}
         buttonText={"Войти"}
         onSubmit={async (data, dispatch) => {
-          const auth = localStorage.getItem("auth");
+          const auth = localStorage.getItem(STORAGE_KEYS.AUTH);
 
           if (!auth) {
             setError("Пользователь не зарегистрирован");

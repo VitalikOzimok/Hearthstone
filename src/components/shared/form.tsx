@@ -4,6 +4,7 @@ import { Button } from "./button";
 import { Input } from "./input";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../constants/route";
+import { KEY_ENTER } from "../navbar/constants";
 
 type Field = {
   name: string;
@@ -44,7 +45,7 @@ export function Form({ fields, onSubmit, buttonText, setError }: ChildProp) {
     }
   };
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
+    if (e.key === KEY_ENTER) {
       handleSubmit();
     }
   };

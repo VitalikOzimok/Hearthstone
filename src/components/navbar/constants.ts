@@ -4,3 +4,4 @@ export const navItems = [
   { to: ROUTES.favorites, label: "Избранное", authRequired: true },
   { to: ROUTES.history, label: "История", authRequired: true },
 ];
+export const KEY_ENTER = "Enter";
