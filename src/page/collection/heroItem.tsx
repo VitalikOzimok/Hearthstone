@@ -2,9 +2,9 @@ import Unknow from "../../assets/classes/unknow.jpg";
 import { heroImages } from "./constants";
 type ChildProps = {
   hero: string[];
-  setFilterByHero: React.Dispatch<React.SetStateAction<string>>;
+  setFilterByHero: React.Dispatch<React.SetStateAction<string | null>>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  filterByHero: string;
+  filterByHero: string | null;
 };
 export function HeroItem({
   hero,

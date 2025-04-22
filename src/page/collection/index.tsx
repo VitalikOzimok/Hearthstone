@@ -13,13 +13,21 @@ export function Collection() {
   const [cards, setCards] = useState<TypeCard[]>([]);
   const [filteredCards, setFilteredCards] = useState<TypeCard[]>([]);
   const [hero, setHero] = useState<string[]>([]);
-  const [filterByHero, setFilterByHero] = useState<string>("Druid");
+  const [filterByHero, setFilterByHero] = useState<string | null>(null);
   const [idByCost, setIdByCost] = useState<number>(1);
   const [loading, setLoading] = useState(true);
   const location = useLocation();
   const searchQuery: string = location.state;
 
   useEffect(() => {
+    if (searchQuery) {
+      setFilterByHero(capitalizeFirstLetter(searchQuery));
+    } else {
+      setFilterByHero("Druid");
+    }
+  }, [searchQuery]);
+  useEffect(() => {
+    if (!filterByHero) return;
     const fetchCards = async () => {
       try {
         const response = await fetch(
