@@ -25,7 +25,22 @@ export function SignUp() {
             isAuthenticated: true,
           };
 
+          const users = JSON.parse(localStorage.getItem("users") || "[]");
+
+          const existing = users.find(
+            (u: any) => u.user.login === userData.user.login
+          );
+
+          if (existing) {
+            setError("Пользователь с таким логином уже существует");
+            return false;
+          }
+
+          users.push({ user: userData.user, token: userData.token });
+          localStorage.setItem("users", JSON.stringify(users));
+
           localStorage.setItem("auth", JSON.stringify(userData));
+
           dispatch({
             type: "LOGIN",
             payload: userData,

@@ -16,7 +16,7 @@ export function LoginBlock() {
     <div className="rounded-xl bg-indigo-500 p-2 relative group">
       <UserCheck className="w-8 h-8 text-white" />
       <div
-        className="flex flex-col gap-1 bg-white border-[1px] border-indigo-500 absolute -bottom-60 opacity-0 right-[0px] rounded-xl p-1  transition-all duration-300 
+        className="flex flex-col gap-1 bg-white border-[1px] border-indigo-500 absolute -bottom-25 opacity-0 right-[0px] rounded-xl p-1  transition-all duration-300 
               group-hover:opacity-100 group-hover:translate-y-16"
       >
         <Header
