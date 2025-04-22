@@ -56,16 +56,18 @@ export function SeacrhInput() {
   }, [searchQuery]);
 
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === KEYS.enter && searchQuery) {
-      navigate(ROUTES.collection, { state: searchQuery });
+    if (e.key === KEYS.enter && searchQuery.trim()) {
+      navigate(
+        `${ROUTES.collection}?q=${encodeURIComponent(searchQuery.trim())}`
+      );
       setSearchQuery("");
+      setSuggestions([]);
     }
   };
 
   const handleSuggestionClick = (suggestion: string) => {
-    setSearchQuery(suggestion);
+    navigate(`${ROUTES.collection}?q=${encodeURIComponent(suggestion)}`);
     setSuggestions([]);
-    navigate(ROUTES.collection, { state: suggestion });
     setSearchQuery("");
   };
 

@@ -6,7 +6,7 @@ import { TypeCard } from "./type";
 import { BASE_URL, CARD_TYPES } from "./constants";
 import { filterCardsByCost } from "../../utils/filterByCost";
 import { API_HEADERS } from "../hearthstoneCard/constants";
-import { useLocation } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { capitalizeFirstLetter } from "../../utils/capitalizeFirstLetter";
 
 export function Collection() {
@@ -16,8 +16,8 @@ export function Collection() {
   const [filterByHero, setFilterByHero] = useState<string | null>(null);
   const [idByCost, setIdByCost] = useState<number>(1);
   const [loading, setLoading] = useState(true);
-  const location = useLocation();
-  const searchQuery: string = location.state;
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get("q") || "";
 
   useEffect(() => {
     if (searchQuery) {
