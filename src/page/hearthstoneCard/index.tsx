@@ -5,22 +5,21 @@ import { Button } from "../../components/shared/button";
 import { API_HEADERS, fieldsToDisplay } from "./constants";
 import { BASE_URL } from "../collection/constants";
 import { useAuth } from "../../hooks/useAuth";
-import { useAppDispatch, useAppSelector } from "../../types/reduxHook";
+import { useAppDispatch } from "../../types/reduxHook";
 import {
   addToFavorites,
   removeFromFavorites,
 } from "../favorites/favoriteSlices";
 
 import { Loader } from "../../components/shared/loader";
+import { useIsFavorite } from "../../hooks/useAppSelector";
 
 export function HearthstoneCard() {
   const { cardName } = useParams<{ cardName: string }>();
   const [oneCard, setOneCard] = useState<TypeCard | null>(null);
   const { state } = useAuth();
   const dispatch = useAppDispatch();
-  const favorites = useAppSelector((state) => state.favorites.items); // Берем список избранных
-  const isFav =
-    oneCard && favorites.some((item: TypeCard) => item.name === oneCard.name);
+  const isFav = useIsFavorite(oneCard);
 
   useEffect(() => {
     const fetchCards = async () => {
@@ -41,7 +40,6 @@ export function HearthstoneCard() {
   const toggleFavorite = () => {
     if (oneCard) {
       if (isFav) {
-        console.log("oneCard внутри toggleFavorite:", oneCard);
         dispatch(removeFromFavorites(oneCard.name));
       } else {
         dispatch(addToFavorites(oneCard));

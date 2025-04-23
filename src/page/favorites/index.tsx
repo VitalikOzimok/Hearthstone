@@ -5,7 +5,7 @@ import { TypeCard } from "../collection/type";
 export const Favorites = () => {
   const favorites = useAppSelector((state) => state.favorites.items);
   if (favorites.length === 0) {
-    return <div>Ваши избранные товары пока пусты!</div>;
+    return <div>Ваша коллекция карт пока пуста!</div>;
   }
 
   return (

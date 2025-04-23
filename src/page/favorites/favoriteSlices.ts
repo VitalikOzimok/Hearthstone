@@ -34,9 +34,7 @@ const favoritesSlice = createSlice({
       }
     },
     removeFromFavorites: (state, action: PayloadAction<string>) => {
-      console.log("Удаляем:", action.payload);
       state.items = state.items.filter((item) => {
-        console.log("Сравниваем:", item.name, "с", action.payload);
         return item.name !== action.payload;
       });
       updateLocalStorage(state.items);
