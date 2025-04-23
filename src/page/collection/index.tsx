@@ -8,6 +8,7 @@ import { filterCardsByCost } from "../../utils/filterByCost";
 import { API_HEADERS } from "../hearthstoneCard/constants";
 import { useSearchParams } from "react-router-dom";
 import { capitalizeFirstLetter } from "../../utils/capitalizeFirstLetter";
+import ErrorBoundary from "../../components/shared/ErrorBoundary/ErrorBoundary";
 
 export function Collection() {
   const [cards, setCards] = useState<TypeCard[]>([]);
@@ -108,7 +109,15 @@ export function Collection() {
       </div>
       <div className="flex flex-col items-center pt-5">
         <FilterByMana setIdByCost={setIdByCost} idByCost={idByCost} />
-        <CardList loading={loading} filteredCards={filteredCards} />
+        <ErrorBoundary
+          fallback={
+            <div>
+              Не удалось отобразить список карт. Пожалуйста, обновите страницу
+            </div>
+          }
+        >
+          <CardList loading={loading} filteredCards={filteredCards} />
+        </ErrorBoundary>
       </div>
     </div>
   );
