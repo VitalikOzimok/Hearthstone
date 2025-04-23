@@ -1,5 +1,6 @@
 import { Button } from "../../components/shared/button";
 import { ROUTES } from "../../constants/route";
+import { useAuth } from "../../hooks/useAuth";
 import { TypeCard } from "./type";
 import { NavLink } from "react-router-dom";
 
@@ -7,6 +8,7 @@ type ChildProps = {
   card: TypeCard;
 };
 export function Card({ card }: ChildProps) {
+  const { state } = useAuth();
   return (
     <div className="relative">
       <NavLink
@@ -27,9 +29,11 @@ export function Card({ card }: ChildProps) {
           <p>{card.name}</p>
         </div>
       </NavLink>
-      <div className="absolute  right-0 top-0 mr-3 mt-3 ">
-        <Button text={"+"} />
-      </div>
+      {state.isAuthenticated && (
+        <div className="absolute  right-0 top-0 mr-3 mt-3 ">
+          <Button text={"+"} />
+        </div>
+      )}
     </div>
   );
 }
