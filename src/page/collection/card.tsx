@@ -3,12 +3,31 @@ import { ROUTES } from "../../constants/route";
 import { useAuth } from "../../hooks/useAuth";
 import { TypeCard } from "./type";
 import { NavLink } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../types/reduxHook";
+import {
+  addToFavorites,
+  removeFromFavorites,
+} from "../favorites/favoriteSlices";
 
 type ChildProps = {
   card: TypeCard;
 };
 export function Card({ card }: ChildProps) {
   const { state } = useAuth();
+  const dispatch = useAppDispatch();
+  const favorites = useAppSelector((state) => state.favorites.items);
+  const isFav =
+    card && favorites.some((item: TypeCard) => item.name === card.name);
+
+  const toggleFavorite = () => {
+    if (card) {
+      if (isFav) {
+        dispatch(removeFromFavorites(card.name));
+      } else {
+        dispatch(addToFavorites(card));
+      }
+    }
+  };
   return (
     <div className="relative">
       <NavLink
@@ -30,8 +49,14 @@ export function Card({ card }: ChildProps) {
         </div>
       </NavLink>
       {state.isAuthenticated && (
-        <div className="absolute  right-0 top-0 mr-3 mt-3 ">
-          <Button text={"+"} />
+        <div
+          onClick={toggleFavorite}
+          className="absolute  right-0 top-0 mr-3 mt-3 "
+        >
+          <Button
+            text={!isFav ? "+" : "-"}
+            color={!isFav ? "bg-blue-500" : "bg-red-400"}
+          />
         </div>
       )}
     </div>

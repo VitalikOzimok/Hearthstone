@@ -13,12 +13,9 @@ export function LoginBlock() {
       <Button to={ROUTES.signup} text={"Регистрация"} />
     </div>
   ) : (
-    <div className="rounded-xl bg-indigo-500 p-2 relative group">
+    <div className="rounded-xl bg-blue-600 p-2 relative group">
       <UserCheck className="w-8 h-8 text-white" />
-      <div
-        className="flex flex-col gap-1 bg-white border-[1px] border-indigo-500 absolute -bottom-25 opacity-0 right-[0px] rounded-xl p-1  transition-all duration-300 
-              group-hover:opacity-100 group-hover:translate-y-16"
-      >
+      <div className="flex flex-col gap-1   bg-blue-500 absolute -bottom-20 opacity-0 right-[0px] rounded-xl p-1  transition-all duration-300 ">
         <Header
           text1={state.user?.login}
           className1={"text-2xl font-semibold"}
