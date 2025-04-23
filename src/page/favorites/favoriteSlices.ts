@@ -4,9 +4,20 @@ import { TypeCard } from "../collection/type";
 interface FavoritesState {
   items: TypeCard[];
 }
+const loadFromLocalStorage = (): TypeCard[] => {
+  try {
+    const data = localStorage.getItem("favorites");
+    return data ? JSON.parse(data) : [];
+  } catch {
+    return [];
+  }
+};
 
 const initialState: FavoritesState = {
-  items: [],
+  items: loadFromLocalStorage(),
+};
+const updateLocalStorage = (items: TypeCard[]) => {
+  localStorage.setItem("favorites", JSON.stringify(items));
 };
 
 const favoritesSlice = createSlice({
@@ -19,6 +30,7 @@ const favoritesSlice = createSlice({
       );
       if (!exists) {
         state.items.push(action.payload);
+        updateLocalStorage(state.items);
       }
     },
     removeFromFavorites: (state, action: PayloadAction<string>) => {
@@ -27,6 +39,7 @@ const favoritesSlice = createSlice({
         console.log("Сравниваем:", item.name, "с", action.payload);
         return item.name !== action.payload;
       });
+      updateLocalStorage(state.items);
     },
   },
 });
