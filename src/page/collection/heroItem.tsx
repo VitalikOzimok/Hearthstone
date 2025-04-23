@@ -18,7 +18,7 @@ export function HeroItem({
         <div
           key={id}
           className={`flex items-center justify-between h-20 cursor-pointer hover:scale-105 transition duration-300 min-w-[275px] rounded-r-xl ${
-            filterByHero === item ? "bg-red-400" : "bg-indigo-600"
+            filterByHero === item ? "bg-red-400" : "bg-blue-600"
           }`}
           onClick={() => {
             setFilterByHero(item);

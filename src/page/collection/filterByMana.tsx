@@ -13,7 +13,7 @@ export function FilterByMana({ setIdByCost, idByCost }: ChildProps) {
             setIdByCost(item);
           }}
           className={`rounded-full p-2 hover:scale-105 cursor-pointer  ${
-            idByCost === item ? "bg-red-400 " : "bg-indigo-600"
+            idByCost === item ? "bg-red-400 " : "bg-blue-600"
           }`}
         >
           {item != 8 ? `${item}` : `${item}+`}
