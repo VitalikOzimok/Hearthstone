@@ -1,4 +1,4 @@
-import Unknow from "../../assets/classes/unknow.jpg";
+import Unknow from "../../assets/classes/unknow.png";
 import { heroImages } from "./constants";
 type ChildProps = {
   hero: string[];
