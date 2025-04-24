@@ -1,7 +1,7 @@
 import { costOptions } from "./constants";
 type ChildProps = {
-  setIdByCost: React.Dispatch<React.SetStateAction<number>>;
-  idByCost: number;
+  setIdByCost: React.Dispatch<React.SetStateAction<number | string>>;
+  idByCost: number | string;
 };
 
 export function FilterByMana({ setIdByCost, idByCost }: ChildProps) {
@@ -9,6 +9,7 @@ export function FilterByMana({ setIdByCost, idByCost }: ChildProps) {
     <div className="flex gap-1 text-white ">
       {costOptions.map((item) => (
         <button
+          key={item}
           onClick={() => {
             setIdByCost(item);
           }}

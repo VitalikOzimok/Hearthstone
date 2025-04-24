@@ -19,7 +19,7 @@ export const heroImages: Record<string, string> = {
   Warlock,
   Warrior,
 };
-export const costOptions = [1, 2, 3, 4, 5, 6, 7, 8];
+export const costOptions = [1, 2, 3, 4, 5, 6, 7, 8, "all"];
 
 export const BASE_URL = "https://omgvamp-hearthstone-v1.p.rapidapi.com";
 
@@ -27,3 +27,25 @@ export const CARD_TYPES = {
   HERO_POWER: "Hero Power",
   HERO: "Hero",
 };
+
+export const wrongSets: string[] = [
+  "Basic",
+  "Hall of Frame",
+  "Missions",
+  "Demo",
+  "System",
+  "Slush",
+  "Promo",
+  "Credits",
+  "Hero Skins",
+  "Tavern Brawl",
+  "Mercenaries",
+  "Wild Event",
+  "Battlegrounds",
+  "Event",
+  "Unknown",
+  "Tutorial",
+  "Taverns of Time",
+  "Demon Hunter Initiate",
+  "Hall of Fame",
+];
