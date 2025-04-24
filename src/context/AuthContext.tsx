@@ -1,6 +1,6 @@
 import React, { createContext, useReducer, ReactNode } from "react";
 import { AuthState, AuthAction } from "../types/auth";
-import { saved } from "../constants/localStorage";
+import { saved, STORAGE_KEYS } from "../constants/localStorage";
 
 const initialState: AuthState = {
   user: null,
@@ -38,7 +38,7 @@ const authReducer = (state: AuthState, action: AuthAction): AuthState => {
         isAuthenticated: true,
       };
     case "LOGOUT":
-      localStorage.removeItem("auth");
+      localStorage.removeItem(STORAGE_KEYS.AUTH);
       return {
         user: null,
         token: null,

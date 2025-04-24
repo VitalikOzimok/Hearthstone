@@ -1,12 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TypeCard } from "../collection/type";
+import { STORAGE_KEYS } from "../../constants/localStorage";
 
-interface FavoritesState {
+type FavoritesState = {
   items: TypeCard[];
-}
+};
 const loadFromLocalStorage = (): TypeCard[] => {
   try {
-    const data = localStorage.getItem("favorites");
+    const data = localStorage.getItem(STORAGE_KEYS.FAVORITES);
     return data ? JSON.parse(data) : [];
   } catch {
     return [];
@@ -17,7 +18,7 @@ const initialState: FavoritesState = {
   items: loadFromLocalStorage(),
 };
 const updateLocalStorage = (items: TypeCard[]) => {
-  localStorage.setItem("favorites", JSON.stringify(items));
+  localStorage.setItem(STORAGE_KEYS.FAVORITES, JSON.stringify(items));
 };
 
 const favoritesSlice = createSlice({
