@@ -4,6 +4,7 @@ import { Form } from "../../components/shared/form";
 import { ROUTES } from "../../constants/route";
 import { fields } from "./constants";
 import { Header } from "../../components/shared/header";
+import { STORAGE_KEYS } from "../../constants/localStorage";
 
 export function SignIn() {
   const [error, setError] = useState<string | null>(null);
@@ -16,7 +17,9 @@ export function SignIn() {
         fields={fields}
         buttonText={"Войти"}
         onSubmit={async (data, dispatch) => {
-          const users = JSON.parse(localStorage.getItem("users") || "[]");
+          const users = JSON.parse(
+            localStorage.getItem(STORAGE_KEYS.USERS) || "[]"
+          );
 
           const found = users.find(
             (u: any) =>
@@ -28,7 +31,7 @@ export function SignIn() {
               type: "LOGIN",
               payload: { user: found.user, token: found.token },
             });
-            localStorage.setItem("auth", JSON.stringify(found)); // Сохраняем активного пользователя
+            localStorage.setItem(STORAGE_KEYS.AUTH, JSON.stringify(found));
             return true;
           } else {
             setError("Неверный логин или пароль");
