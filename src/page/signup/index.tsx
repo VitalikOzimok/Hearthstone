@@ -3,6 +3,7 @@ import { Form } from "../../components/shared/form";
 import { Header } from "../../components/shared/header";
 import { fields } from "./constants";
 import { generateToken } from "../../utils/generateToken";
+import { STORAGE_KEYS } from "../../constants/localStorage";
 
 export function SignUp() {
   const [error, setError] = useState<string | null>(null);
@@ -25,7 +26,9 @@ export function SignUp() {
             isAuthenticated: true,
           };
 
-          const users = JSON.parse(localStorage.getItem("users") || "[]");
+          const users = JSON.parse(
+            localStorage.getItem(STORAGE_KEYS.USERS) || "[]"
+          );
 
           const existing = users.find(
             (u: any) => u.user.login === userData.user.login
@@ -37,9 +40,9 @@ export function SignUp() {
           }
 
           users.push({ user: userData.user, token: userData.token });
-          localStorage.setItem("users", JSON.stringify(users));
+          localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(users));
 
-          localStorage.setItem("auth", JSON.stringify(userData));
+          localStorage.setItem(STORAGE_KEYS.AUTH, JSON.stringify(userData));
 
           dispatch({
             type: "LOGIN",
