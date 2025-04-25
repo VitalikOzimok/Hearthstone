@@ -1,6 +1,6 @@
 import Unknow from "../../assets/classes/unknow.png";
 import { heroImages } from "./constants";
-type ChildProps = {
+export type ChildProps = {
   hero: string[];
   setFilterByHero: React.Dispatch<React.SetStateAction<string | null>>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;

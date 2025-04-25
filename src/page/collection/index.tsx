@@ -1,7 +1,16 @@
+import { Suspense, lazy } from "react";
+const HeroItem = lazy(() =>
+  import("./heroItem").then((module) => ({ default: module.HeroItem }))
+);
+const FilterBySets = lazy(() =>
+  import("./filterBySets").then((module) => ({ default: module.FilterBySets }))
+);
+const FilterByMana = lazy(() =>
+  import("./filterByMana").then((module) => ({ default: module.FilterByMana }))
+);
+
 import { useEffect, useState } from "react";
-import { FilterByMana } from "./filterByMana";
 import { CardList } from "./cardList";
-import { HeroItem } from "./heroItem";
 import { TypeCard } from "./type";
 import { BASE_URL, CARD_TYPES, wrongSets } from "./constants";
 import { filterCardsByCost } from "../../utils/filterByCost";
@@ -10,7 +19,6 @@ import { API_HEADERS } from "../hearthstoneCard/constants";
 import { useSearchParams } from "react-router-dom";
 import { capitalizeFirstLetter } from "../../utils/capitalizeFirstLetter";
 import ErrorBoundary from "../../components/shared/ErrorBoundary/ErrorBoundary";
-import { FilterBySets } from "./filterBySets";
 import { deleteWrongSets } from "../../utils/deleteWrongSets";
 
 export function Collection() {
@@ -28,10 +36,12 @@ export function Collection() {
   useEffect(() => {
     if (searchQuery) {
       setFilterByHero(capitalizeFirstLetter(searchQuery));
+      setLoading(true);
     } else {
       setFilterByHero("Druid");
     }
   }, [searchQuery]);
+
   useEffect(() => {
     if (!filterByHero) return;
     const fetchCards = async () => {
@@ -77,9 +87,9 @@ export function Collection() {
 
         const data = await response.json();
         const res = data.classes.filter(
-          (item: string) => item != "Dream" && item != "Whizbang"
+          (item: string) =>
+            item != CARD_TYPES.DREAM && item != CARD_TYPES.WHIZBANG
         );
-        console.log(data);
 
         setHero(res);
         const filteredSets = deleteWrongSets(data.sets, wrongSets);
@@ -99,33 +109,29 @@ export function Collection() {
     setFilteredCards(filtered);
   }, [idByCost, selectedSet, cards]);
 
-  useEffect(() => {
-    if (searchQuery) {
-      if (searchQuery) {
-        setFilterByHero(capitalizeFirstLetter(searchQuery));
-      }
-    }
-  }, [searchQuery]);
-
   return (
     <div className="flex bg-amber-100">
       <div className="py-8 ">
-        <HeroItem
-          hero={hero}
-          setFilterByHero={setFilterByHero}
-          setLoading={setLoading}
-          filterByHero={filterByHero}
-        />
+        <Suspense fallback={<div>Загрузка героев...</div>}>
+          <HeroItem
+            hero={hero}
+            setFilterByHero={setFilterByHero}
+            setLoading={setLoading}
+            filterByHero={filterByHero}
+          />
+        </Suspense>
       </div>
       <div className="flex flex-col items-center pt-5 mx-auto">
-        <div className="flex items-center gap-10">
-          <FilterBySets
-            sets={sets}
-            selectedSet={selectedSet}
-            setSelectedSet={setSelectedSet}
-          />
-          <FilterByMana setIdByCost={setIdByCost} idByCost={idByCost} />
-        </div>
+        <Suspense fallback={<div>Загрузка фильтров...</div>}>
+          <div className="flex items-center gap-10">
+            <FilterBySets
+              sets={sets}
+              selectedSet={selectedSet}
+              setSelectedSet={setSelectedSet}
+            />
+            <FilterByMana setIdByCost={setIdByCost} idByCost={idByCost} />
+          </div>
+        </Suspense>
         <ErrorBoundary
           fallback={
             <div>

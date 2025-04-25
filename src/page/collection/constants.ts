@@ -26,6 +26,8 @@ export const BASE_URL = "https://omgvamp-hearthstone-v1.p.rapidapi.com";
 export const CARD_TYPES = {
   HERO_POWER: "Hero Power",
   HERO: "Hero",
+  DREAM: "Dream",
+  WHIZBANG: "Whizbang",
 };
 
 export const wrongSets: string[] = [
