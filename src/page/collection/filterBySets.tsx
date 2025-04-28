@@ -15,10 +15,16 @@ export function FilterBySets({ sets, selectedSet, setSelectedSet }: ChildProp) {
     setSelectedSet(item);
     setIsModalOpen(false);
   };
+  function handleModal() {
+    setIsModalOpen(!isModalOpen);
+  }
+  const handleItemClick = (item: string) => () => {
+    handleSelect(item);
+  };
 
   return (
     <div className="relative inline-block">
-      <Button text={selectedSet} onClick={() => setIsModalOpen(!isModalOpen)} />
+      <Button text={selectedSet} onClick={handleModal} />
       {isModalOpen && (
         <div className="absolute mt-2 bg-blue-500 text-white border rounded-xl shadow-lg p-4 w-64 z-50">
           <div className="flex items-center justify-between">
@@ -32,7 +38,7 @@ export function FilterBySets({ sets, selectedSet, setSelectedSet }: ChildProp) {
             {sets.map((item) => (
               <li key={item}>
                 <div
-                  onClick={() => handleSelect(item)}
+                  onClick={handleItemClick(item)}
                   className={`w-[200px] cursor-pointer text-left px-3 py-2 rounded 
         ${
           item === selectedSet
