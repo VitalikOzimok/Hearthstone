@@ -1,23 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { STORAGE_KEYS } from "../../constants/localStorage";
+import {
+  loadFromLocalStorage,
+  removeFromLocalStorage,
+  saveToLocalStorage,
+} from "../../utils/loadFromLocalStorage";
 
 const STORAGE_KEY = STORAGE_KEYS.SEARCH_HISTORY;
 
-const loadFromLocalStorage = (): string[] => {
-  const saved = localStorage.getItem(STORAGE_KEY);
-  return saved ? JSON.parse(saved) : [];
-};
-
-const saveToLocalStorage = (history: string[]) => {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
-};
-
-interface SearchState {
+type SearchState = {
   history: string[];
-}
+};
 
 const initialState: SearchState = {
-  history: loadFromLocalStorage(),
+  history: loadFromLocalStorage<string[]>(STORAGE_KEY) || [],
 };
 
 const searchSlice = createSlice({
@@ -32,11 +28,11 @@ const searchSlice = createSlice({
       const updated = [query, ...filtered].slice(0, 10);
 
       state.history = updated;
-      saveToLocalStorage(updated);
+      saveToLocalStorage(STORAGE_KEY, updated);
     },
     clearHistory: (state) => {
       state.history = [];
-      localStorage.removeItem(STORAGE_KEY);
+      removeFromLocalStorage(STORAGE_KEY);
     },
   },
 });
