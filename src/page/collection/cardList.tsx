@@ -1,10 +1,12 @@
+
 import { NoCards } from "../../components/shared/noCards";
 import { Skeleton } from "../../components/shared/skeleton";
+
 import { Card } from "./card";
 import { TypeCard } from "./type";
 
 type ChildProps = {
-  loading: boolean;
+  loading?: boolean;
   filteredCards: TypeCard[];
 };
 
@@ -22,7 +24,9 @@ export function CardList({ loading, filteredCards }: ChildProps) {
           </div>
         </div>
       ) : (
+
         <NoCards />
+
       )}
     </div>
   );
