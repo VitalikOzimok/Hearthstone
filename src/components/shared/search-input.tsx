@@ -5,8 +5,12 @@ import { BASE_URL } from "../../page/collection/constants";
 import { API_HEADERS } from "../../page/hearthstoneCard/constants";
 import { ROUTES } from "../../constants/route";
 import { KEYS } from "../../constants/keys";
+import { addSearchQuery } from "../../page/history/searchSlice";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
 
 export function SeacrhInput() {
+  const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState<string>("");
 
@@ -57,6 +61,7 @@ export function SeacrhInput() {
 
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === KEYS.enter && searchQuery.trim()) {
+      dispatch(addSearchQuery(searchQuery));
       navigate(
         `${ROUTES.collection}?q=${encodeURIComponent(searchQuery.trim())}`
       );
@@ -66,6 +71,7 @@ export function SeacrhInput() {
   };
 
   const handleSuggestionClick = (suggestion: string) => {
+    dispatch(addSearchQuery(suggestion));
     navigate(`${ROUTES.collection}?q=${encodeURIComponent(suggestion)}`);
     setSuggestions([]);
     setSearchQuery("");
