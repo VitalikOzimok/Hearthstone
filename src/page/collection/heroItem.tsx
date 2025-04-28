@@ -1,6 +1,6 @@
 import Unknow from "../../assets/classes/unknow.png";
 import { heroImages } from "./constants";
-type ChildProps = {
+export type ChildProps = {
   hero: string[];
   setFilterByHero: React.Dispatch<React.SetStateAction<string | null>>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -13,7 +13,7 @@ export function HeroItem({
   filterByHero,
 }: ChildProps) {
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-3">
       {hero.map((item, id) => (
         <div
           key={id}
@@ -32,7 +32,7 @@ export function HeroItem({
             <img
               src={heroImages[item] || Unknow}
               alt=""
-              className="h-30 w-35"
+              className="h-25 w-30"
             />
           </div>
         </div>
