@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { ROUTES } from "../../constants/route";
+import { Button } from "../../components/shared/button";
 
 export function History() {
   const dispatch = useDispatch<AppDispatch>();
@@ -17,7 +18,7 @@ export function History() {
     if (!state.isAuthenticated) {
       navigate(ROUTES.signin);
     }
-  }, [state.isAuthenticated, navigate]);
+  }, [state.isAuthenticated]);
 
   const handleClearHistory = () => {
     dispatch(clearHistory());
@@ -28,17 +29,16 @@ export function History() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-50 p-6 flex flex-col gap-3">
       <h2 className="text-2xl font-bold text-gray-800 mb-6">
         История поисковых запросов
       </h2>
 
-      <button
+      <Button
         onClick={handleClearHistory}
-        className="bg-red-400 text-white p-2 rounded-md mb-4 hover:bg-red-600 transition duration-300"
-      >
-        Очистить историю
-      </button>
+        text={"Очистить историю"}
+        color={"bg-red-400"}
+      />
 
       {searchHistory.length > 0 ? (
         <ul className="space-y-2">

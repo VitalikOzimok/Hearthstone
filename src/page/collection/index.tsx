@@ -26,7 +26,7 @@ export function Collection() {
   const [filteredCards, setFilteredCards] = useState<TypeCard[]>([]);
   const [hero, setHero] = useState<string[]>([]);
   const [sets, setSets] = useState<string[]>([]);
-  const [selectedSet, setSelectedSet] = useState<string>("Classic");
+  const [selectedSet, setSelectedSet] = useState<string>("Perils in Paradise");
   const [filterByHero, setFilterByHero] = useState<string | null>(null);
   const [idByCost, setIdByCost] = useState<number | string>("all");
   const [loading, setLoading] = useState(true);

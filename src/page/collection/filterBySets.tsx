@@ -35,21 +35,24 @@ export function FilterBySets({ sets, selectedSet, setSelectedSet }: ChildProp) {
             />
           </div>
           <ul className="space-y-1 max-h-60 overflow-y-auto">
-            {sets.map((item) => (
-              <li key={item}>
-                <div
-                  onClick={handleItemClick(item)}
-                  className={`w-[200px] cursor-pointer text-left px-3 py-2 rounded 
+            {sets
+              .slice()
+              .reverse()
+              .map((item) => (
+                <li key={item}>
+                  <div
+                    onClick={handleItemClick(item)}
+                    className={`w-[200px] cursor-pointer text-left px-3 py-2 rounded 
         ${
           item === selectedSet
             ? "bg-red-400 text-white"
             : "hover:bg-gray-100 hover:text-blue-500"
         }`}
-                >
-                  {item}
-                </div>
-              </li>
-            ))}
+                  >
+                    {item}
+                  </div>
+                </li>
+              ))}
           </ul>
         </div>
       )}

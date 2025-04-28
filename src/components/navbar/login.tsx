@@ -7,6 +7,9 @@ import { Header } from "../shared/header";
 export function LoginBlock() {
   const { state, dispatch } = useAuth();
 
+  const handleLogout = () => {
+    dispatch({ type: "LOGOUT" });
+  };
   return !state.isAuthenticated ? (
     <div className="flex gap-2 text-lg font-s5 whitespace-nowrap">
       <Button to={ROUTES.signin} text={"Войти"} />
@@ -26,10 +29,7 @@ export function LoginBlock() {
           text2={state.user?.email}
           className2={"text-gray-300"}
         />
-        <div
-          onClick={() => dispatch({ type: "LOGOUT" })}
-          className="p-1 w-[112px] mx-auto "
-        >
+        <div onClick={handleLogout} className="p-1 w-[112px] mx-auto ">
           <Button text={"выйти"} icon={<X size={20} />} />
         </div>
       </div>
