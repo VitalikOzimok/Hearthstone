@@ -26,7 +26,7 @@ export function FilterBySets({ sets, selectedSet, setSelectedSet }: ChildProp) {
     <div className="relative inline-block">
       <Button text={selectedSet} onClick={handleModal} />
       {isModalOpen && (
-        <div className="absolute mt-2 bg-blue-500 text-white border rounded-xl shadow-lg p-4 w-64 z-50">
+        <div className="absolute mt-2 bg-blue-600 text-white  rounded-xl shadow-lg p-4 w-64 z-50">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold mb-2">Выберите набор</h2>
             <X

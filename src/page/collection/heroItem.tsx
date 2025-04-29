@@ -25,7 +25,7 @@ export function HeroItem({
             setLoading(true);
           }}
         >
-          <h1 className="text-nowrap ml-8 text-lg text-white font-sans">
+          <h1 className="text-nowrap ml-8 text-lg font-semibold text-white font-sans">
             {item}
           </h1>
           <div className="flex-shrink-0 ">
