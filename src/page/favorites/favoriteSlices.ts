@@ -5,43 +5,54 @@ import { STORAGE_KEYS } from "../../constants/localStorage";
 type FavoritesState = {
   items: TypeCard[];
 };
-const loadFromLocalStorage = (): TypeCard[] => {
-  try {
-    const data = localStorage.getItem(STORAGE_KEYS.FAVORITES);
-    return data ? JSON.parse(data) : [];
-  } catch {
-    return [];
-  }
-};
 
 const initialState: FavoritesState = {
-  items: loadFromLocalStorage(),
+  items: [],
 };
-const updateLocalStorage = (items: TypeCard[]) => {
-  localStorage.setItem(STORAGE_KEYS.FAVORITES, JSON.stringify(items));
+
+const updateLocalStorage = (items: TypeCard[], token: string) => {
+  localStorage.setItem(
+    `${STORAGE_KEYS.FAVORITES}_${token}`,
+    JSON.stringify(items)
+  );
 };
 
 const favoritesSlice = createSlice({
   name: "favorites",
   initialState,
   reducers: {
-    addToFavorites: (state, action: PayloadAction<TypeCard>) => {
-      const exists = state.items.some(
-        (item) => item.name === action.payload.name
-      );
-      if (!exists) {
-        state.items.push(action.payload);
-        updateLocalStorage(state.items);
+    loadFavorites: (state, action: PayloadAction<string>) => {
+      const token = action.payload;
+      try {
+        const data = localStorage.getItem(`${STORAGE_KEYS.FAVORITES}_${token}`);
+        state.items = data ? JSON.parse(data) : [];
+      } catch {
+        state.items = [];
       }
     },
-    removeFromFavorites: (state, action: PayloadAction<string>) => {
-      state.items = state.items.filter((item) => {
-        return item.name !== action.payload;
-      });
-      updateLocalStorage(state.items);
+    addToFavorites: (
+      state,
+      action: PayloadAction<{ token: string; card: TypeCard }>
+    ) => {
+      const { token, card } = action.payload;
+      const exists = state.items.some((item) => item.name === card.name);
+      if (!exists) {
+        state.items.push(card);
+        updateLocalStorage(state.items, token);
+      }
+    },
+
+    removeFromFavorites: (
+      state,
+      action: PayloadAction<{ token: string; name: string }>
+    ) => {
+      const { token, name } = action.payload;
+      state.items = state.items.filter((item) => item.name !== name);
+      updateLocalStorage(state.items, token);
     },
   },
 });
 
-export const { addToFavorites, removeFromFavorites } = favoritesSlice.actions;
+export const { addToFavorites, removeFromFavorites, loadFavorites } =
+  favoritesSlice.actions;
 export default favoritesSlice.reducer;

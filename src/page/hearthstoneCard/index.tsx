@@ -10,9 +10,9 @@ import {
   addToFavorites,
   removeFromFavorites,
 } from "../favorites/favoriteSlices";
-
 import { Loader } from "../../components/shared/loader";
 import { useIsFavorite } from "../../hooks/useAppSelector";
+import { getToken } from "../../utils/getToken";
 
 export function HearthstoneCard() {
   const { cardName } = useParams<{ cardName: string }>();
@@ -37,12 +37,15 @@ export function HearthstoneCard() {
 
     fetchCards();
   }, [cardName]);
+
   const toggleFavorite = () => {
     if (oneCard) {
       if (isFav) {
-        dispatch(removeFromFavorites(oneCard.name));
+        dispatch(
+          removeFromFavorites({ token: getToken()!, name: oneCard.name })
+        );
       } else {
-        dispatch(addToFavorites(oneCard));
+        dispatch(addToFavorites({ token: getToken()!, card: oneCard }));
       }
     }
   };
