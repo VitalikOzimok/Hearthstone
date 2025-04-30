@@ -1,6 +1,6 @@
 import { Loader2, Search } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../page/collection/constants";
 import { API_HEADERS } from "../../page/hearthstoneCard/constants";
 import { ROUTES } from "../../constants/route";
@@ -10,12 +10,17 @@ import { useAppDispatch } from "../../hooks/useAppDispatch";
 
 export function SeacrhInput() {
   const dispatch = useAppDispatch();
+  const location = useLocation();
 
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  useEffect(() => {
+    setSuggestions([]);
+  }, [location.pathname]);
 
   useEffect(() => {
     if (searchQuery.trim() === "") {
