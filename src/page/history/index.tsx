@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { clearHistory } from "./searchSlice";
+import { clearHistory, setSearchHistory } from "./searchSlice";
 import type { RootState, AppDispatch } from "../../store";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
@@ -17,8 +17,11 @@ export function History() {
   useEffect(() => {
     if (!state.isAuthenticated) {
       navigate(ROUTES.signin);
+    } else {
+      const userLogin = state.user?.login ?? "guest";
+      dispatch(setSearchHistory(userLogin));
     }
-  }, [state.isAuthenticated]);
+  }, [state.isAuthenticated, navigate, dispatch, state.user]);
 
   const handleClearHistory = () => {
     dispatch(clearHistory());
