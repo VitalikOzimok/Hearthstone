@@ -9,6 +9,7 @@ import {
   removeFromFavorites,
 } from "../favorites/favoriteSlices";
 import { useIsFavorite } from "../../hooks/useAppSelector";
+import { getToken } from "../../utils/getToken";
 
 type ChildProps = {
   card: TypeCard;
@@ -21,9 +22,9 @@ export function Card({ card }: ChildProps) {
   const toggleFavorite = () => {
     if (card) {
       if (isFav) {
-        dispatch(removeFromFavorites(card.name));
+        dispatch(removeFromFavorites({ token: getToken()!, name: card.name }));
       } else {
-        dispatch(addToFavorites(card));
+        dispatch(addToFavorites({ token: getToken()!, card }));
       }
     }
   };
