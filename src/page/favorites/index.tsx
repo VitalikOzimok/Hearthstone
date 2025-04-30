@@ -7,6 +7,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { ROUTES } from "../../constants/route";
 import { loadFavorites } from "../favorites/favoriteSlices";
 import { getToken } from "../../utils/getToken";
+import { Header } from "../../components/shared/header";
 
 export const Favorites = () => {
   const dispatch = useAppDispatch();
@@ -26,7 +27,7 @@ export const Favorites = () => {
   }, [state.isAuthenticated, dispatch]);
 
   if (favorites.length === 0) {
-    return <div>Ваша коллекция карт пока пуста!</div>;
+    return <Header text2={"Ваша коллекция карт пока пуста!"} />;
   }
 
   return (
